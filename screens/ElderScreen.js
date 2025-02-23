@@ -1,33 +1,79 @@
-// ElderScreen.js
-import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { RequestsContext } from '../context/RequestsContext';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import Voice from '@react-native-community/voice';
+import { RequestsContext } from '../context/RequestsContext'; // Ensure correct path
 
 export default function ElderScreen({ onGoBack }) {
-  const [requestText, setRequestText] = useState('');
-  
-  // Access the addRequest function from context
+  const [isRecording, setIsRecording] = useState(false);
+  const [recognizedText, setRecognizedText] = useState('');
   const { addRequest } = useContext(RequestsContext);
 
+  useEffect(() => {
+    // Set up event listeners
+    Voice.onSpeechResults = onSpeechResults;
+    Voice.onSpeechError = onSpeechError;
+
+    // Cleanup when the component unmounts
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
+
+  const startRecording = async () => {
+    setRecognizedText('');
+    setIsRecording(true);
+    try {
+      await Voice.start('en-US'); // Set to preferred language
+    } catch (error) {
+      console.error('Voice start error:', error);
+    }
+  };
+
+  const stopRecording = async () => {
+    setIsRecording(false);
+    try {
+      await Voice.stop();
+    } catch (error) {
+      console.error('Voice stop error:', error);
+    }
+  };
+
+  const onSpeechResults = (event) => {
+    if (event.value && event.value.length > 0) {
+      setRecognizedText(event.value[0]); // Take the best result
+    }
+  };
+
+  const onSpeechError = (event) => {
+    console.error('Speech error:', event.error);
+    setIsRecording(false);
+  };
+
   const handleSubmitRequest = () => {
-    if (requestText.trim()) {
-      addRequest(requestText);  // Call context function
-      setRequestText('');
-      alert('Request submitted!');
+    if (recognizedText.trim()) {
+      addRequest(recognizedText);
+      setRecognizedText('');
+      alert('Voice request submitted!');
+    } else {
+      alert('No speech detected. Try again.');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Elder Screen</Text>
-      <Text>Simulate voice input by typing below:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="I need help with groceries..."
-        value={requestText}
-        onChangeText={setRequestText}
+      <Text style={styles.title}>Elder Voice Request</Text>
+
+      <Button
+        title={isRecording ? 'Stop Recording' : 'Start Recording'}
+        onPress={isRecording ? stopRecording : startRecording}
       />
-      <Button title="Submit Request" onPress={handleSubmitRequest} />
+
+      <Text style={styles.recognizedText}>
+        {recognizedText ? `Recognized: ${recognizedText}` : 'No speech detected yet'}
+      </Text>
+
+      <Button title="Submit Request" onPress={handleSubmitRequest} disabled={!recognizedText} />
+
       <View style={{ height: 20 }} />
       <Button title="Go Back" onPress={onGoBack} />
     </View>
@@ -37,11 +83,8 @@ export default function ElderScreen({ onGoBack }) {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: '#fff' },
   title: { fontSize: 20, marginBottom: 16 },
-  input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
+  recognizedText: {
     marginVertical: 10,
-    padding: 8,
-    borderRadius: 5,
+    fontStyle: 'italic',
   },
 });
