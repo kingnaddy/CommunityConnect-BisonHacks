@@ -1,1 +1,5 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+echo 'export PATH="$HOME/.gem/ruby/3.4.3/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
