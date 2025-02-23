@@ -109,7 +109,7 @@ Copy
 
 git clone https://github.com/CommunityConnect-BisonHacks/community-connect.git
 
-cd community-connect
+cd community-connect.
 
 
 
@@ -123,7 +123,10 @@ bash
 
 Copy
 
-npm install
+npm install.
+
+
+
 
 
 
@@ -136,6 +139,13 @@ js
 Copy
 
 'Authorization': `Bearer YOUR_OPENAI_API_KEY`
+.
+
+
+
+
+
+
 
 
 
