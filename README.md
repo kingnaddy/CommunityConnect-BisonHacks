@@ -9,6 +9,14 @@ Distance-Based Sorting (Volunteers see nearest requests first).
 Expo Location for capturing Elder/Volunteer coordinates.
 
 
+
+
+
+
+
+
+
+
 Key Features
 
 Elder Flow
@@ -18,6 +26,9 @@ Elders type a request (e.g., “I need help getting tomatoes”).
 The app captures Elder’s latitude and longitude.
 
 A call to OpenAI categorizes the request (Grocery, Medical, etc.).
+
+
+
 
 
 
@@ -31,6 +42,8 @@ The nearest request is labeled “Closest Place.”
 
 
 
+
+
 AI Categorization
 
 Uses gpt-4.0 mini (Chat Completions endpoint) to classify requests.
@@ -38,6 +51,15 @@ Uses gpt-4.0 mini (Chat Completions endpoint) to classify requests.
 Categories: Grocery, Medical, Errand, Companionship, Emergency, General.
 
 Note: As an MVP, this project does not include full production-level features (e.g., robust authentication, background checks, error handling, etc.).
+
+
+
+
+
+
+
+
+
 
 
 
@@ -67,7 +89,16 @@ Copy
 
 
 
+
+
+
+
+
+
+
 Getting Started
+
+
 
 
 Clone the repository:
@@ -83,6 +114,9 @@ cd community-connect
 
 
 
+
+
+
 Install dependencies:
 
 bash
@@ -90,6 +124,10 @@ bash
 Copy
 
 npm install
+
+
+
+
 
 Add your OpenAI API key in RequestsContext.js:
 
@@ -99,6 +137,11 @@ Copy
 
 'Authorization': `Bearer YOUR_OPENAI_API_KEY`
 
+
+
+
+
+
 Run the project:
 
 bash
@@ -106,6 +149,10 @@ bash
 Copy
 
 npx expo start
+
+
+
+
 
 
 
@@ -120,6 +167,8 @@ Android: Run on Android device/emulator or npx expo run:android
 
 
 
+
+
 Requirements
 Node.js & npm (or yarn)
 
@@ -128,6 +177,9 @@ Expo CLI (optional but recommended)
 OpenAI API Key (free trial credits or paid plan)
 
 Location Permissions for both Elders & Volunteers
+
+
+
 
 
 
