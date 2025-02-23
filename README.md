@@ -52,7 +52,8 @@ Getting Started
 Clone the repository:
 bash
 Copy
-git clone https://github.com/yourusername/community-connect.git
+git clone https://github.com/CommunityConnect-BisonHacks/community-connect.git
+
 cd community-connect
 
 
