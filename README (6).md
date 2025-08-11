@@ -1,4 +1,4 @@
-# Community Connect — Elder Requests & Volunteer Matching (Expo/React Native)
+# Community Connect (Expo/React Native)
 
 **Community Connect** is a mobile MVP that lets elders post assistance requests and matches nearby volunteers by distance. It includes AI-based request categorization (via OpenAI), geolocation using Expo Location, and a simple in‑app workflow for accepting requests.
 
